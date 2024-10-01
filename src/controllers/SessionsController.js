@@ -26,6 +26,15 @@ class SessionsController {
       subject: String(user.id),
       expiresIn
     });
+    
+    // Config do Cookie
+    response.cookie("token", token, {
+      // Medida de segurança que impede que o cookie seja acessado por javaScript no navegador
+      httpOnly: true,
+      sameSite: "none",
+      secure: true,
+      maxAge: 15 * 60 * 1000
+    })
 
    delete user.password
     response.status(201).json({ token, user });
